@@ -10,11 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(useMaterial3: true),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        
-      ),
+      home: Scaffold(),
     );
   }
 }

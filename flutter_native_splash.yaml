@@ -43,7 +43,7 @@ flutter_native_splash:
   # set.
   #color_dark: "#042a49"
   background_image_dark: "assets/images/splash_screen_dark.png"
-  #image_dark: assets/splash-invert.png
+  #image_dark: assets/images/splash_screen_dark.png
   #branding_dark: assets/dart_dark.png
 
   # From Android 12 onwards, the splash screen is handled differently than in previous versions.
@@ -60,7 +60,7 @@ flutter_native_splash:
     image: assets/images/splach_icon2.jpg
 
     # Splash screen background color.
-    #color: "#42a5f5"
+    #color: "#1c2c4a"
 
     # App icon background color.
     #icon_background_color: "#111111"
