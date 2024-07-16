@@ -18,6 +18,16 @@ class MyThemeData {
         fontWeight: FontWeight.bold,
         color: AppColors.black,
       ),
+      bodyMedium: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.w500,
+        color: AppColors.black,
+      ),
+      bodySmall: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+        color: AppColors.black,
+      ),
     ),
   );
 }

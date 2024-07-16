@@ -4,7 +4,6 @@ import 'package:islami_app/home/quran/quran_tab.dart';
 import 'package:islami_app/home/radio/radio_tab.dart';
 import 'package:islami_app/home/sebha/sebha_tab.dart';
 import 'package:islami_app/utils/app_colors.dart';
-import 'package:islami_app/utils/my_theme_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
           bottomNavigationBar: Theme(
             data: ThemeData(
               canvasColor: Theme.of(context).primaryColor,
-             ),
+            ),
             child: BottomNavigationBar(
               currentIndex: isSelectidIndex,
               onTap: (index) {
