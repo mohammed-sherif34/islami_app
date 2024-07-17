@@ -28,6 +28,11 @@ class MyThemeData {
         fontWeight: FontWeight.bold,
         color: AppColors.black,
       ),
+      titleLarge: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+        color: AppColors.white,
+      ),
     ),
   );
 }
