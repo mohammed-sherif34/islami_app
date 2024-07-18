@@ -18,13 +18,14 @@ class _SpinningWheelState extends State<SpinningWheel>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   double currentAngle = 0.0;
-
+  int counter = 0;
+  String tasbehPhrase = 'سبحان الله';
   @override
   void initState() {
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
   }
 
@@ -35,12 +36,21 @@ class _SpinningWheelState extends State<SpinningWheel>
   }
 
   void startSpinning() {
+    if (counter == 32) {
+      tasbehPhrase = 'الحمد لله';
+    } else if (counter == 65) {
+      tasbehPhrase = 'الله أكبر';
+    } else if (counter == 98) {
+      tasbehPhrase = 'سبحان الله';
+      counter = 0;
+    }
     setState(() {
       currentAngle += 0.3; // Rotate by 0.3 radians each time
     });
     animationController.forward(from: 0.0).then((_) {
       animationController.stop();
     });
+    counter++;
   }
 
   @override
@@ -48,20 +58,23 @@ class _SpinningWheelState extends State<SpinningWheel>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const Spacer(),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.,
           children: [
-            SizedBox(
-              width: 20,
+            const Spacer(),
+            const SizedBox(
+              width: 40,
             ),
             Image.asset('assets/images/head_of_seb7a.png'),
+            Spacer()
           ],
         ),
         AnimatedBuilder(
           animation: animationController,
           child: Container(
             alignment: Alignment.center,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
                   "assets/images/body_of_seb7a.png",
@@ -77,46 +90,7 @@ class _SpinningWheelState extends State<SpinningWheel>
             );
           },
         ),
-        SebhaBody(),
-        SizedBox(height: 20),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).primaryColor,
-          ),
-          onPressed: startSpinning,
-          child: Text(
-            'سبحان الله',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class BottomClipper extends CustomClipper<Rect> {
-  @override
-  Rect getClip(Size size) {
-    return Rect.fromLTRB(0, 0, size.width,
-        size.height - 50); // Adjust the height to crop from the bottom
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Rect> oldClipper) {
-    return false;
-  }
-}
-
-class SebhaBody extends StatelessWidget {
-  const SebhaBody({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+        Spacer(),
         Text(
           'عدد التسبيحات ',
           style: Theme.of(context).textTheme.bodyMedium,
@@ -128,11 +102,26 @@ class SebhaBody extends StatelessWidget {
               borderRadius: BorderRadius.circular(20)),
           padding: EdgeInsets.only(top: 15, bottom: 20, right: 8, left: 12),
           child: Text(
-            ' 30 ',
+            counter.toString(),
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
+        SizedBox(height: 20),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          onPressed: startSpinning,
+          child: Text(
+            tasbehPhrase,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        Spacer(
+          flex: 2,
+        )
       ],
     );
   }
 }
+

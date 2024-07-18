@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/home/hadeth/hadeth_details_screen.dart';
 import 'package:islami_app/utils/app_colors.dart';
 
 class HadethTab extends StatelessWidget {
@@ -45,16 +46,21 @@ class HadethItem extends StatelessWidget {
   final int hadethnum;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'الحديث رقم ${hadethnum + 1}',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-        ],
+    return InkWell(
+      onTap: () {
+          Navigator.pushNamed(context, HadethDetailsScreen.name);
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'الحديث رقم ${hadethnum + 1}',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ],
+        ),
       ),
     );
   }
