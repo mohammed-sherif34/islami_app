@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:islami_app/home/quran/quran_data.dart';
-import 'package:islami_app/home/quran/sura_details_screen.dart';
+import 'package:islami_app/home/tabs/quran/quran_data.dart';
+import 'package:islami_app/home/tabs/quran/sura_details_screen.dart';
 import 'package:islami_app/utils/app_colors.dart';
 
 class QuranTab extends StatelessWidget {

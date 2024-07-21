@@ -10,7 +10,10 @@ class SebhaTab extends StatelessWidget {
 }
 
 class SpinningWheel extends StatefulWidget {
+  const SpinningWheel({super.key});
+
   @override
+ 
   _SpinningWheelState createState() => _SpinningWheelState();
 }
 
@@ -36,11 +39,13 @@ class _SpinningWheelState extends State<SpinningWheel>
   }
 
   void startSpinning() {
-    if (counter == 32) {
+        counter++;
+
+    if (counter == 33) {
       tasbehPhrase = 'الحمد لله';
-    } else if (counter == 65) {
+    } else if (counter == 66) {
       tasbehPhrase = 'الله أكبر';
-    } else if (counter == 98) {
+    } else if (counter == 99) {
       tasbehPhrase = 'سبحان الله';
       counter = 0;
     }
@@ -50,7 +55,6 @@ class _SpinningWheelState extends State<SpinningWheel>
     animationController.forward(from: 0.0).then((_) {
       animationController.stop();
     });
-    counter++;
   }
 
   @override
