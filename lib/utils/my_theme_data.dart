@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:islami_app/utils/app_colors.dart';
 
 class MyThemeData {
+  
   static ThemeData lightTheme = ThemeData(
     primaryColor: AppColors.primaryLightColor,
     scaffoldBackgroundColor: Colors.transparent,
@@ -34,5 +35,6 @@ class MyThemeData {
         color: AppColors.white,
       ),
     ),
+    
   );
 }
