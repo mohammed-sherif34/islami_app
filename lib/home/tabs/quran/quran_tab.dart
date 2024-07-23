@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/home/tabs/quran/quran_data.dart';
+import 'package:islami_app/home/tabs/quran/sura_data.dart';
 import 'package:islami_app/home/tabs/quran/sura_details_screen.dart';
 import 'package:islami_app/utils/app_colors.dart';
 
@@ -34,7 +35,7 @@ class QuranTab extends StatelessWidget {
                   ],
                 ),
               ),
-              VerticalDivider(
+              const VerticalDivider(
                 color: AppColors.primaryLightColor,
                 thickness: 2,
               ),
@@ -60,9 +61,9 @@ class QuranTab extends StatelessWidget {
           child: ListView.builder(
               itemCount: suraList.length,
               itemBuilder: (_, index) {
+                
                 return SuraNameAndNumberOfVerses(
-                  numberOfVerses: suraVerses[index],
-                  suraName: suraList[index],
+                  suraData:SuraData(index, suraList[index], suraVersesNum[index]) ,
                 );
               }),
         )
@@ -72,16 +73,16 @@ class QuranTab extends StatelessWidget {
 }
 
 class SuraNameAndNumberOfVerses extends StatelessWidget {
-  final String suraName;
-  final String numberOfVerses;
+
+  final SuraData suraData;
   const SuraNameAndNumberOfVerses(
-      {super.key, required this.suraName, required this.numberOfVerses});
+      {super.key,required this.suraData});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, SuraDetailsScreen.name);
+        Navigator.pushNamed(context, SuraDetailsScreen.name,arguments: suraData);
       },
       child: IntrinsicHeight(
         child: Row(
@@ -95,14 +96,14 @@ class SuraNameAndNumberOfVerses extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: Text(
-                      numberOfVerses,
+                      suraData.numberOfVerses,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
                 ],
               ),
             ),
-            VerticalDivider(
+            const VerticalDivider(
               color: AppColors.primaryLightColor,
               thickness: 2,
             ),
@@ -111,7 +112,7 @@ class SuraNameAndNumberOfVerses extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    suraName,
+                   suraData.suraName,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],

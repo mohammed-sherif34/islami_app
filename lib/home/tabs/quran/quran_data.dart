@@ -114,7 +114,7 @@ final List<String> suraList = [
   "الفلق",
   "الناس"
 ];
-final List<String> suraVerses = [
+final List<String> suraVersesNum = [
   "7",
   "286",
   "200",

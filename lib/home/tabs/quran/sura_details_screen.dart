@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:islami_app/home/tabs/quran/sura_data.dart';
 import 'package:islami_app/utils/app_colors.dart';
 
-class SuraDetailsScreen extends StatelessWidget {
-  const SuraDetailsScreen({super.key});
+class SuraDetailsScreen extends StatefulWidget {
+  SuraDetailsScreen({super.key, this.index = 1});
   static const String name = 'SuraDetailsScreen';
+  final int index;
+
+  @override
+  State<SuraDetailsScreen> createState() => _SuraDetailsScreenState();
+}
+
+class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
+  List<String> lines = [];
+
   @override
   Widget build(BuildContext context) {
+    var suraData = ModalRoute.of(context)?.settings.arguments as SuraData;
+    if (lines.isEmpty) {
+  loudSuraa(suraData.index);
+}
     return Stack(
       children: [
         Image.asset(
@@ -44,7 +59,7 @@ class SuraDetailsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'سورة البقرة',
+                            'سورة ${suraData.suraName}',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           SizedBox(
@@ -56,6 +71,7 @@ class SuraDetailsScreen extends StatelessWidget {
                               'assets/images/sura_play_icon.png',
                             ),
                           ),
+
                           //assets\images\sura_play_icon.png
                         ],
                       ),
@@ -64,7 +80,17 @@ class SuraDetailsScreen extends StatelessWidget {
                         width: double.infinity,
                         height: 1,
                       ),
-                      
+                      lines.isEmpty
+                          ? CircularProgressIndicator(
+                              color: AppColors.primaryLightColor,
+                            )
+                          : Expanded(
+                              child: ListView.builder(
+                                  itemCount: lines.length,
+                                  itemBuilder: (_, index) {
+                                    return Text(lines[index]);
+                                  }),
+                            )
                     ],
                   ),
                 ),
@@ -74,5 +100,15 @@ class SuraDetailsScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future loudSuraa(int index) async {
+    String sura = await rootBundle.loadString('assets/files/${index + 1}.txt');
+    List<String> virsesList = sura.split('\n');
+    for (var i = 0; i < virsesList.length; i++) {
+      print(virsesList[i]);
+    }
+    lines = virsesList;
+    setState(() {});
   }
 }
