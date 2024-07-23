@@ -4,7 +4,7 @@ import 'package:islami_app/home/tabs/quran/sura_data.dart';
 import 'package:islami_app/utils/app_colors.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
-  SuraDetailsScreen({super.key, this.index = 1});
+  const SuraDetailsScreen({super.key, this.index = 1});
   static const String name = 'SuraDetailsScreen';
   final int index;
 
@@ -19,8 +19,16 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
   Widget build(BuildContext context) {
     var suraData = ModalRoute.of(context)?.settings.arguments as SuraData;
     if (lines.isEmpty) {
-  loudSuraa(suraData.index);
-}
+      loudSuraa(suraData.index);
+    }
+
+    // Concatenate all text into a single string
+    String concatenatedText = lines.asMap().entries.map((entry) {
+      int index = entry.key;
+      String text = entry.value;
+      return '$text(${index + 1})';
+    }).join(' ');
+
     return Stack(
       children: [
         Image.asset(
@@ -62,35 +70,35 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                             'سورة ${suraData.suraName}',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 25,
                           ),
-                          ImageIcon(
+                          const ImageIcon(
                             color: AppColors.black,
                             AssetImage(
                               'assets/images/sura_play_icon.png',
                             ),
                           ),
-
-                          //assets\images\sura_play_icon.png
                         ],
                       ),
                       Container(
+                        margin: const EdgeInsets.only(top: 8, bottom: 24),
                         color: Theme.of(context).primaryColor,
                         width: double.infinity,
                         height: 1,
                       ),
                       lines.isEmpty
-                          ? CircularProgressIndicator(
+                          ? const CircularProgressIndicator(
                               color: AppColors.primaryLightColor,
                             )
                           : Expanded(
-                              child: ListView.builder(
-                                  itemCount: lines.length,
-                                  itemBuilder: (_, index) {
-                                    return Text(lines[index]);
-                                  }),
-                            )
+                              child: SingleChildScrollView(
+                                child: Text(
+                                  concatenatedText,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                            ),
                     ],
                   ),
                 ),

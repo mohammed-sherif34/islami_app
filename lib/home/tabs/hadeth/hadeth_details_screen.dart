@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:islami_app/utils/app_colors.dart';
 
-class HadethDetailsScreen extends StatelessWidget {
+class HadethDetailsScreen extends StatefulWidget {
   const HadethDetailsScreen({super.key});
   static const String name = 'HadethDetailsScreen';
+
+  @override
+  State<HadethDetailsScreen> createState() => _HadethDetailsScreenState();
+}
+
+class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    String hadeth = ModalRoute.of(context)?.settings.arguments as String;
+    List<String> hadethLines = hadeth.split('\n');
+
     return Stack(
       children: [
         Image.asset(
@@ -44,19 +54,30 @@ class HadethDetailsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'الحديث الأول',
+                            hadethLines[0],
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 25,
                           ),
                         ],
                       ),
                       Container(
+                        margin: const EdgeInsets.only(bottom: 16, top: 8),
                         color: Theme.of(context).primaryColor,
                         width: double.infinity,
                         height: 1,
                       ),
+                      Expanded(
+                        child: ListView.builder(
+                            itemBuilder: (_, index) {
+                              return Text(
+                                hadethLines[index + 1],
+                                textDirection: TextDirection.rtl,
+                              );
+                            },
+                            itemCount: hadethLines.length - 1),
+                      )
                     ],
                   ),
                 ),
