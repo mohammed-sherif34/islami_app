@@ -66,12 +66,7 @@ class _SpinningWheelState extends State<SpinningWheel>
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsetsDirectional.only(
-                  // start: MediaQuery.of(context).size.width * .4
-                  ),
-              child: Image.asset('assets/images/Frame1.png'),
-            ),
+            Image.asset('assets/images/head_of_sebha.png'),
           ],
         ),
         AnimatedBuilder(
