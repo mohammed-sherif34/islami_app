@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/utils/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HadethDetailsScreen extends StatelessWidget {
+class HadethDetailsScreen extends StatefulWidget {
   const HadethDetailsScreen({super.key});
   static const String name = 'HadethDetailsScreen';
+
+  @override
+  State<HadethDetailsScreen> createState() => _HadethDetailsScreenState();
+}
+
+class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
+  String hadethBody = '';
+  List<String> hadethLines = [];
+  hadethBodyCollect() {
+    for (int i = 1; i < hadethLines.length; i++) {
+      hadethBody += hadethLines[i];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String hadeth = ModalRoute.of(context)?.settings.arguments as String;
+    hadethLines = hadeth.split('\n');
+    hadethBodyCollect();
+
     return Stack(
       children: [
         Image.asset(
@@ -17,7 +36,7 @@ class HadethDetailsScreen extends StatelessWidget {
         Scaffold(
           appBar: AppBar(
             title: Text(
-              'إسلامي',
+            AppLocalizations.of(context)!.app_title,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             centerTitle: true,
@@ -44,19 +63,28 @@ class HadethDetailsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'الحديث الأول',
+                            hadethLines[0],
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 25,
                           ),
                         ],
                       ),
                       Container(
+                        margin: const EdgeInsets.only(bottom: 16, top: 8),
                         color: Theme.of(context).primaryColor,
                         width: double.infinity,
                         height: 1,
+                      ),Expanded(
+                        child: SingleChildScrollView(
+                          child: Text(
+                                    hadethBody,
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                        ),
                       ),
+                     
                     ],
                   ),
                 ),

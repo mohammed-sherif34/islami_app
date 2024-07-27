@@ -1,0 +1,15 @@
+{
+  "app_title": "اسلامي ",
+  "sura_name":"اسم السوره",
+  "ayat_num": "عدد الايات",
+  "quran": "القرآن",
+  "hadeth": "الحديث",
+  "sebha": "التسبيح",
+  "radio": "راديو",
+  "alahadeth": "الاحاديث",
+"holy_quran_radio":"إذاعة القرآن الكريم",
+"praise_God":"سبحان الله",
+  "thank_God":"الحمد لله",
+  "allah_is_the_greatest":"الله اكبر",
+  "number_of_praises":"عدد التسبيحات"
+}

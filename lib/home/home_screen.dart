@@ -4,6 +4,7 @@ import 'package:islami_app/home/tabs/quran/quran_tab.dart';
 import 'package:islami_app/home/tabs/radio/radio_tab.dart';
 import 'package:islami_app/home/tabs/sebha/sebha_tab.dart';
 import 'package:islami_app/utils/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,7 +16,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int isSelectidIndex = 0;
-  List<Widget> tabs = [RadioTab(), SebhaTab(), HadethTab(), QuranTab()];
+  List<Widget> tabs = [
+    QuranTab(),
+    HadethTab(),
+    SebhaTab(),
+    RadioTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Scaffold(
           appBar: AppBar(
             title: Text(
-              'إسلامي',
+              AppLocalizations.of(context)!.app_title,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             centerTitle: true,
@@ -46,24 +52,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {});
               },
               selectedItemColor: AppColors.black,
-              items: const [
+              items: [
                 BottomNavigationBarItem(
                   icon: ImageIcon(
                     size: 40,
                     AssetImage(
-                      'assets/images/radio_icon.png',
+                      'assets/images/quran_icon.png',
                     ),
                   ),
-                  label: 'راديو',
-                ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    size: 40,
-                    AssetImage(
-                      'assets/images/sebha_icon.png',
-                    ),
-                  ),
-                  label: 'سبحا',
+                  label: AppLocalizations.of(context)!.quran,
                 ),
                 BottomNavigationBarItem(
                   icon: ImageIcon(
@@ -72,16 +69,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       'assets/images/hadeth_icon.png',
                     ),
                   ),
-                  label: 'حديث',
+                  label: AppLocalizations.of(context)!.hadeth,
                 ),
                 BottomNavigationBarItem(
                   icon: ImageIcon(
                     size: 40,
                     AssetImage(
-                      'assets/images/quran_icon.png',
+                      'assets/images/sebha_icon.png',
                     ),
                   ),
-                  label: 'قرءان',
+                  label: AppLocalizations.of(context)!.sebha,
+                ),
+                BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    size: 40,
+                    AssetImage(
+                      'assets/images/radio_icon.png',
+                    ),
+                  ),
+                  label: AppLocalizations.of(context)!.radio,
                 ),
               ],
               backgroundColor: AppColors.primaryLightColor,

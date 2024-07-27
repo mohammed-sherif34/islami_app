@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SebhaTab extends StatelessWidget {
   const SebhaTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SpinningWheel();
+    return const SpinningWheel();
   }
 }
 
@@ -13,7 +14,6 @@ class SpinningWheel extends StatefulWidget {
   const SpinningWheel({super.key});
 
   @override
- 
   _SpinningWheelState createState() => _SpinningWheelState();
 }
 
@@ -21,8 +21,9 @@ class _SpinningWheelState extends State<SpinningWheel>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   double currentAngle = 0.0;
+
   int counter = 0;
-  String tasbehPhrase = 'سبحان الله';
+  String tasbehPhrase = '';
   @override
   void initState() {
     super.initState();
@@ -33,22 +34,21 @@ class _SpinningWheelState extends State<SpinningWheel>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    tasbehPhrase = AppLocalizations.of(context)!.praise_God;
+  }
+
+  @override
   void dispose() {
     animationController.dispose();
     super.dispose();
   }
 
   void startSpinning() {
-        counter++;
+    counter++;
 
-    if (counter == 33) {
-      tasbehPhrase = 'الحمد لله';
-    } else if (counter == 66) {
-      tasbehPhrase = 'الله أكبر';
-    } else if (counter == 99) {
-      tasbehPhrase = 'سبحان الله';
-      counter = 0;
-    }
+    tasbehCheck(context);
     setState(() {
       currentAngle += 0.3; // Rotate by 0.3 radians each time
     });
@@ -64,20 +64,15 @@ class _SpinningWheelState extends State<SpinningWheel>
       children: [
         const Spacer(),
         Row(
-          //mainAxisAlignment: MainAxisAlignment.,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Spacer(),
-            const SizedBox(
-              width: 40,
-            ),
-            Image.asset('assets/images/head_of_seb7a.png'),
-            Spacer()
+            Image.asset('assets/images/head_of_sebha.png'),
           ],
         ),
         AnimatedBuilder(
           animation: animationController,
           child: Container(
-            alignment: Alignment.center,
+            alignment: Alignment.topCenter,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
@@ -85,7 +80,7 @@ class _SpinningWheelState extends State<SpinningWheel>
                 ),
               ),
             ),
-            height: MediaQuery.of(context).size.height / 3.3,
+            height: MediaQuery.of(context).size.height / 3.6,
           ),
           builder: (BuildContext context, Widget? _widget) {
             return Transform.rotate(
@@ -96,7 +91,7 @@ class _SpinningWheelState extends State<SpinningWheel>
         ),
         Spacer(),
         Text(
-          'عدد التسبيحات ',
+          AppLocalizations.of(context)!.number_of_praises,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         Container(
@@ -127,5 +122,15 @@ class _SpinningWheelState extends State<SpinningWheel>
       ],
     );
   }
-}
 
+  void tasbehCheck(BuildContext context) {
+    if (counter == 33) {
+      tasbehPhrase = AppLocalizations.of(context)!.thank_God;
+    } else if (counter == 66) {
+      tasbehPhrase = AppLocalizations.of(context)!.allah_is_the_greatest;
+    } else if (counter == 99) {
+      tasbehPhrase = AppLocalizations.of(context)!.praise_God;
+      counter = 0;
+    }
+  }
+}
