@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami_app/home/tabs/hadeth/hadeth_details_screen.dart';
 import 'package:islami_app/utils/app_colors.dart';
- List<String> hadethContent = [];
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+List<String> hadethContent = [];
+
 class HadethTab extends StatelessWidget {
-  HadethTab({super.key});
-  
+  const HadethTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     loudHadethFile();
@@ -20,7 +23,7 @@ class HadethTab extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'الأحاديث',
+             AppLocalizations.of(context)!.alahadeth,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
@@ -31,13 +34,13 @@ class HadethTab extends StatelessWidget {
         ),
         Expanded(
           child: ListView.builder(
-              itemCount: 15,
+              itemCount: 50,
               itemBuilder: (_, index) {
                 return HadethItem(
                   hadethnum: index,
                 );
               }),
-        )
+        ),
       ],
     );
   }
@@ -46,7 +49,6 @@ class HadethTab extends StatelessWidget {
     String content = await rootBundle.loadString('assets/files/ahadeth.txt');
     hadethContent = content.split('#\r\n');
     //List<String> hadeth=
-   
   }
 }
 
@@ -57,7 +59,8 @@ class HadethItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, HadethDetailsScreen.name,arguments: hadethContent[hadethnum]);
+        Navigator.pushNamed(context, HadethDetailsScreen.name,
+            arguments: hadethContent[hadethnum]);
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 16.0),

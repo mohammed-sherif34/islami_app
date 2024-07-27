@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami_app/home/tabs/quran/sura_data.dart';
 import 'package:islami_app/utils/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
   const SuraDetailsScreen({super.key, this.index = 1});
@@ -40,7 +41,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
         Scaffold(
           appBar: AppBar(
             title: Text(
-              'إسلامي',
+              AppLocalizations.of(context)!.app_title,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             centerTitle: true,

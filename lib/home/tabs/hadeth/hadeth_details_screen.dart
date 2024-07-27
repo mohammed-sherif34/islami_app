@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:islami_app/utils/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HadethDetailsScreen extends StatefulWidget {
   const HadethDetailsScreen({super.key});
@@ -11,10 +11,19 @@ class HadethDetailsScreen extends StatefulWidget {
 }
 
 class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
+  String hadethBody = '';
+  List<String> hadethLines = [];
+  hadethBodyCollect() {
+    for (int i = 1; i < hadethLines.length; i++) {
+      hadethBody += hadethLines[i];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String hadeth = ModalRoute.of(context)?.settings.arguments as String;
-    List<String> hadethLines = hadeth.split('\n');
+    hadethLines = hadeth.split('\n');
+    hadethBodyCollect();
 
     return Stack(
       children: [
@@ -27,7 +36,7 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
         Scaffold(
           appBar: AppBar(
             title: Text(
-              'إسلامي',
+            AppLocalizations.of(context)!.app_title,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             centerTitle: true,
@@ -67,17 +76,15 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
                         color: Theme.of(context).primaryColor,
                         width: double.infinity,
                         height: 1,
+                      ),Expanded(
+                        child: SingleChildScrollView(
+                          child: Text(
+                                    hadethBody,
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                        ),
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                            itemBuilder: (_, index) {
-                              return Text(
-                                hadethLines[index + 1],
-                                textDirection: TextDirection.rtl,
-                              );
-                            },
-                            itemCount: hadethLines.length - 1),
-                      )
+                     
                     ],
                   ),
                 ),
