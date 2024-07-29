@@ -3,6 +3,7 @@ import 'package:islami_app/home/tabs/hadeth/hadeth_tab.dart';
 import 'package:islami_app/home/tabs/quran/quran_tab.dart';
 import 'package:islami_app/home/tabs/radio/radio_tab.dart';
 import 'package:islami_app/home/tabs/sebha/sebha_tab.dart';
+import 'package:islami_app/home/tabs/settings/settings_tab.dart';
 import 'package:islami_app/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     HadethTab(),
     SebhaTab(),
     RadioTab(),
+    SettingsTab(),
   ];
 
   @override
@@ -89,6 +91,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   label: AppLocalizations.of(context)!.radio,
                 ),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.settings,
+                    ),
+                    label: AppLocalizations.of(context)!.settings)
               ],
               backgroundColor: AppColors.primaryLightColor,
             ),

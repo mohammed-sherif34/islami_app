@@ -14,7 +14,7 @@ class QuranTab extends StatelessWidget {
       children: [
         Image.asset('assets/images/quran_image.png'),
         const SizedBox(
-          height: 10,
+          height: 20,
         ),
         Container(
           color: AppColors.primaryLightColor,
@@ -45,7 +45,7 @@ class QuranTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                     AppLocalizations.of(context)!.sura_name,
+                      AppLocalizations.of(context)!.sura_name,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -62,9 +62,9 @@ class QuranTab extends StatelessWidget {
           child: ListView.builder(
               itemCount: suraList.length,
               itemBuilder: (_, index) {
-                
                 return SuraNameAndNumberOfVerses(
-                  suraData:SuraData(index, suraList[index], suraVersesNum[index]) ,
+                  suraData:
+                      SuraData(index, suraList[index], suraVersesNum[index]),
                 );
               }),
         )
@@ -74,16 +74,15 @@ class QuranTab extends StatelessWidget {
 }
 
 class SuraNameAndNumberOfVerses extends StatelessWidget {
-
   final SuraData suraData;
-  const SuraNameAndNumberOfVerses(
-      {super.key,required this.suraData});
+  const SuraNameAndNumberOfVerses({super.key, required this.suraData});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, SuraDetailsScreen.name,arguments: suraData);
+        Navigator.pushNamed(context, SuraDetailsScreen.name,
+            arguments: suraData);
       },
       child: IntrinsicHeight(
         child: Row(
@@ -94,12 +93,9 @@ class SuraNameAndNumberOfVerses extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text(
-                      suraData.numberOfVerses,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
+                  Text(
+                    suraData.numberOfVerses,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),
@@ -109,14 +105,17 @@ class SuraNameAndNumberOfVerses extends StatelessWidget {
               thickness: 2,
             ),
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                   suraData.suraName,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      suraData.suraName,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
