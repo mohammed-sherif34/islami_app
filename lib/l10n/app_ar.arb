@@ -12,5 +12,9 @@
   "thank_God":"الحمد لله",
   "allah_is_the_greatest":"الله اكبر",
   "settings": "الاعدادات",
-  "number_of_praises":"عدد التسبيحات"
+  "number_of_praises":"عدد التسبيحات",
+  "language": "اللغة",
+  "theme": "النمط",
+  "dark":"ليلي",
+  "light": "نهار"
 }

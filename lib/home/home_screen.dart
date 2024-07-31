@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:islami_app/home/tabs/hadeth/hadeth_tab.dart';
 import 'package:islami_app/home/tabs/quran/quran_tab.dart';
 import 'package:islami_app/home/tabs/radio/radio_tab.dart';
 import 'package:islami_app/home/tabs/sebha/sebha_tab.dart';
 import 'package:islami_app/home/tabs/settings/settings_tab.dart';
+import 'package:islami_app/providers/app_config_provider.dart';
 import 'package:islami_app/utils/app_colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,19 +30,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return Stack(
       children: [
-        Image.asset(
-          'assets/images/app_back_ground.png',
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.fill,
-        ),
+        provider.isDark()
+            ? Image.asset(
+                'assets/images/dark_back_ground.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              )
+            : Image.asset(
+                'assets/images/app_back_ground.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              ),
         Scaffold(
           appBar: AppBar(
             title: Text(
               AppLocalizations.of(context)!.app_title,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: GoogleFonts.elMessiri(
+                  textStyle: Theme.of(context).textTheme.bodyLarge),
             ),
             centerTitle: true,
           ),
@@ -53,7 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 isSelectidIndex = index;
                 setState(() {});
               },
-              selectedItemColor: AppColors.black,
+              selectedItemColor:
+                  provider.isDark() ? AppColors.yellow : AppColors.black,
               items: [
                 BottomNavigationBarItem(
                   icon: ImageIcon(

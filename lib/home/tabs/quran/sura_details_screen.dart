@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:islami_app/home/tabs/quran/sura_data.dart';
 import 'package:islami_app/utils/app_colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/app_config_provider.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
   const SuraDetailsScreen({super.key, this.index = 1});
@@ -18,6 +22,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     var suraData = ModalRoute.of(context)?.settings.arguments as SuraData;
     if (lines.isEmpty) {
       loudSuraa(suraData.index);
@@ -32,14 +37,30 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
 
     return Stack(
       children: [
-        Image.asset(
-          'assets/images/app_back_ground.png',
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.fill,
-        ),
+        provider.isDark()
+            ? Image.asset(
+                'assets/images/dark_back_ground.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              )
+            : Image.asset(
+                'assets/images/app_back_ground.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              ),
         Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              color: provider.isDark()
+                  ? AppColors.white
+                  : AppColors.black, // Change the color of the back arrow here
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
             title: Text(
               AppLocalizations.of(context)!.app_title,
               style: Theme.of(context).textTheme.bodyLarge,
@@ -60,22 +81,31 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                       top: MediaQuery.of(context).size.height * .04,
                       bottom: MediaQuery.of(context).size.height * .1),
                   decoration: BoxDecoration(
-                      color: AppColors.white2,
+                      color: provider.isDark()
+                          ? AppColors.primaryDarkColor
+                          : AppColors.white2,
                       borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'سورة ${suraData.suraName}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
+                          Text('سورة ${suraData.suraName}',
+                              style: GoogleFonts.reemKufi(
+                                textStyle: provider.isDark()
+                                    ? Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(color: AppColors.yellow)
+                                    : Theme.of(context).textTheme.bodyMedium,
+                              )),
                           const SizedBox(
                             width: 25,
                           ),
-                          const ImageIcon(
-                            color: AppColors.black,
+                          ImageIcon(
+                            color: provider.isDark()
+                                ? AppColors.yellow
+                                : AppColors.black,
                             AssetImage(
                               'assets/images/sura_play_icon.png',
                             ),
@@ -84,19 +114,28 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 8, bottom: 24),
-                        color: Theme.of(context).primaryColor,
+                        color: provider.isDark()
+                            ? AppColors.yellow
+                            : Theme.of(context).primaryColor,
                         width: double.infinity,
                         height: 1,
                       ),
                       lines.isEmpty
-                          ? const CircularProgressIndicator(
-                              color: AppColors.primaryLightColor,
+                          ? CircularProgressIndicator(
+                              color: provider.isDark()
+                                  ? AppColors.yellow
+                                  : AppColors.primaryLightColor,
                             )
                           : Expanded(
                               child: SingleChildScrollView(
                                 child: Text(
                                   concatenatedText,
                                   textDirection: TextDirection.rtl,
+                                  style: GoogleFonts.amiri(
+                                      textStyle: TextStyle(
+                                          color: provider.isDark()
+                                              ? AppColors.yellow
+                                              : AppColors.black)),
                                 ),
                               ),
                             ),
