@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:islami_app/home/tabs/quran/quran_data.dart';
 import 'package:islami_app/home/tabs/quran/sura_data.dart';
 import 'package:islami_app/home/tabs/quran/sura_details_screen.dart';
 import 'package:islami_app/utils/app_colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/app_config_provider.dart';
 
 class QuranTab extends StatelessWidget {
   const QuranTab({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return Column(
       children: [
         Image.asset('assets/images/quran_image.png'),
@@ -17,7 +22,9 @@ class QuranTab extends StatelessWidget {
           height: 20,
         ),
         Container(
-          color: AppColors.primaryLightColor,
+          color: provider.isDark()
+              ? AppColors.yellow
+              : AppColors.primaryLightColor,
           height: 3,
         ),
         IntrinsicHeight(
@@ -31,13 +38,16 @@ class QuranTab extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.ayat_num,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: GoogleFonts.elMessiri(
+                          textStyle: Theme.of(context).textTheme.bodyMedium),
                     ),
                   ],
                 ),
               ),
-              const VerticalDivider(
-                color: AppColors.primaryLightColor,
+              VerticalDivider(
+                color: provider.isDark()
+                    ? AppColors.yellow
+                    : AppColors.primaryLightColor,
                 thickness: 2,
               ),
               Expanded(
@@ -46,7 +56,8 @@ class QuranTab extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.sura_name,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: GoogleFonts.elMessiri(
+                          textStyle: Theme.of(context).textTheme.bodyMedium),
                     ),
                   ],
                 ),
@@ -55,7 +66,9 @@ class QuranTab extends StatelessWidget {
           ),
         ),
         Container(
-          color: AppColors.primaryLightColor,
+          color: provider.isDark()
+              ? AppColors.yellow
+              : AppColors.primaryLightColor,
           height: 3,
         ),
         Expanded(
@@ -79,6 +92,7 @@ class SuraNameAndNumberOfVerses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, SuraDetailsScreen.name,
@@ -95,13 +109,16 @@ class SuraNameAndNumberOfVerses extends StatelessWidget {
                 children: [
                   Text(
                     suraData.numberOfVerses,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: GoogleFonts.reemKufi(
+                        textStyle: Theme.of(context).textTheme.bodySmall),
                   ),
                 ],
               ),
             ),
-            const VerticalDivider(
-              color: AppColors.primaryLightColor,
+            VerticalDivider(
+              color: provider.isDark()
+                  ? AppColors.yellow
+                  : AppColors.primaryLightColor,
               thickness: 2,
             ),
             Expanded(
@@ -112,7 +129,8 @@ class SuraNameAndNumberOfVerses extends StatelessWidget {
                   children: [
                     Text(
                       suraData.suraName,
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: GoogleFonts.reemKufi(
+                          textStyle: Theme.of(context).textTheme.bodySmall),
                     ),
                   ],
                 ),

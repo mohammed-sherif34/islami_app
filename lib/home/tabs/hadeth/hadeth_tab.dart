@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:islami_app/home/tabs/hadeth/hadeth_details_screen.dart';
 import 'package:islami_app/utils/app_colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/app_config_provider.dart';
 
 List<String> hadethContent = [];
 
@@ -11,25 +15,31 @@ class HadethTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     loudHadethFile();
     return Column(
       children: [
         Image.asset('assets/images/ahadeth_image.png'),
         Container(
-          color: AppColors.primaryLightColor,
+          color: provider.isDark()
+              ? AppColors.yellow
+              : AppColors.primaryLightColor,
           height: 3,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-             AppLocalizations.of(context)!.alahadeth,
-              style: Theme.of(context).textTheme.bodyMedium,
+              AppLocalizations.of(context)!.alahadeth,
+              style: GoogleFonts.elMessiri(
+                  textStyle: Theme.of(context).textTheme.bodyMedium),
             ),
           ],
         ),
         Container(
-          color: AppColors.primaryLightColor,
+          color: provider.isDark()
+              ? AppColors.yellow
+              : AppColors.primaryLightColor,
           height: 3,
         ),
         Expanded(
@@ -69,7 +79,8 @@ class HadethItem extends StatelessWidget {
           children: [
             Text(
               'الحديث رقم ${hadethnum + 1}',
-              style: Theme.of(context).textTheme.bodySmall,
+              style: GoogleFonts.reemKufi(
+                  textStyle: Theme.of(context).textTheme.bodySmall),
             ),
           ],
         ),

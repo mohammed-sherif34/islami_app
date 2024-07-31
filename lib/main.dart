@@ -22,12 +22,14 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: MyThemeData.lightTheme,
+      darkTheme: MyThemeData.darkTheme,
+      themeMode: provider.appTheme,
       locale: Locale(provider.appLanguage),
       debugShowCheckedModeBanner: false,
       routes: {
-        HomeScreen.name: (context) => HomeScreen(),
-        SuraDetailsScreen.name: (context) => SuraDetailsScreen(),
-        HadethDetailsScreen.name: (context) => HadethDetailsScreen(),
+        HomeScreen.name: (context) => const HomeScreen(),
+        SuraDetailsScreen.name: (context) => const SuraDetailsScreen(),
+        HadethDetailsScreen.name: (context) => const HadethDetailsScreen(),
       },
       initialRoute: HomeScreen.name,
     );
