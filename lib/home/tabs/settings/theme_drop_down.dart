@@ -6,7 +6,8 @@ import '../../../providers/app_config_provider.dart';
 import '../../../utils/app_colors.dart';
 
 class ThemeSwitch extends StatelessWidget {
-  const ThemeSwitch({Key? key});
+  const ThemeSwitch({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ThemeSwitch extends StatelessWidget {
             color: Colors.grey.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -37,12 +38,12 @@ class ThemeSwitch extends StatelessWidget {
                   provider.changeTheme(ThemeMode.dark);
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
                   decoration: BoxDecoration(
                     color: isDark
                         ? AppColors.primaryDarkColor
                         : Colors.transparent,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(20), // Adjusted corners
                       bottomRight: Radius.circular(20),
                     ),
@@ -63,16 +64,16 @@ class ThemeSwitch extends StatelessWidget {
             Expanded(
               // Light theme option comes second in RTL
               child: InkWell(
-                onTap: () {
+                onTap: () async {
                   provider.changeTheme(ThemeMode.light);
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
                   decoration: BoxDecoration(
                     color: !isDark
                         ? AppColors.primaryLightColor
                         : Colors.transparent,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20), // Adjusted corners
                       bottomLeft: Radius.circular(20),
                     ),

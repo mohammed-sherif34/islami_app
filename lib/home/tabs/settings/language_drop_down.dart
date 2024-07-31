@@ -62,9 +62,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
       dropdownColor:
           provider.isDark() ? AppColors.yellow : AppColors.primaryLightColor,
       borderRadius: BorderRadius.circular(15),
-      value: dropdownValue.isNotEmpty
-          ? dropdownValue
-          : widget.dropdownMenuEntries.first,
+      value: provider.appLanguage == 'ar' ? 'العربية' : 'English',
       icon: Icon(Icons.arrow_drop_down),
       iconSize: 24,
       elevation: 0,
