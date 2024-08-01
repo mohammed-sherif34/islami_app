@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:islami_app/utils/app_colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/app_config_provider.dart';
 
 class SebhaTab extends StatelessWidget {
   const SebhaTab({super.key});
@@ -59,6 +64,7 @@ class _SpinningWheelState extends State<SpinningWheel>
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -66,17 +72,21 @@ class _SpinningWheelState extends State<SpinningWheel>
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/head_of_sebha.png'),
+            Image.asset(provider.isDark()
+                ? 'assets/images/head_of_sebha_dark.png'
+                : 'assets/images/head_of_sebha.png'),
           ],
         ),
         AnimatedBuilder(
           animation: animationController,
           child: Container(
             alignment: Alignment.topCenter,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  "assets/images/body_of_seb7a.png",
+                  provider.isDark()
+                      ? "assets/images/dark_body_of_seb7a.png"
+                      : "assets/images/body_of_seb7a.png",
                 ),
               ),
             ),
@@ -92,7 +102,8 @@ class _SpinningWheelState extends State<SpinningWheel>
         Spacer(),
         Text(
           AppLocalizations.of(context)!.number_of_praises,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: GoogleFonts.elMessiri(
+              textStyle: Theme.of(context).textTheme.bodyMedium),
         ),
         Container(
           margin: EdgeInsets.only(top: 15),
@@ -102,19 +113,27 @@ class _SpinningWheelState extends State<SpinningWheel>
           padding: EdgeInsets.only(top: 15, bottom: 20, right: 8, left: 12),
           child: Text(
             counter.toString(),
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: GoogleFonts.reemKufi(
+                textStyle: Theme.of(context).textTheme.bodyMedium),
           ),
         ),
         SizedBox(height: 20),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: provider.isDark()
+                ? AppColors.yellow
+                : Theme.of(context).primaryColor,
           ),
           onPressed: startSpinning,
-          child: Text(
-            tasbehPhrase,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          child: Text(tasbehPhrase,
+              style: GoogleFonts.reemKufi(
+                textStyle: provider.isDark()
+                    ? Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(color: AppColors.black)
+                    : Theme.of(context).textTheme.titleLarge,
+              )),
         ),
         Spacer(
           flex: 2,

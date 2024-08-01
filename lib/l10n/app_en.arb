@@ -11,5 +11,10 @@
   "praise_God":"Praise God",
   "thank_God":"Thank God",
   "allah_is_the_greatest":"Allah is the greatest",
-  "number_of_praises":"Number of praises"
+  "settings": "settings",
+  "number_of_praises":"Number of praises",
+  "language": "language",
+  "theme": "Theme",
+  "dark": "dark",
+  "light": "light"
 }

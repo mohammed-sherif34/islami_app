@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:islami_app/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:islami_app/utils/app_colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/app_config_provider.dart';
 
 class HadethDetailsScreen extends StatefulWidget {
   const HadethDetailsScreen({super.key});
@@ -21,23 +25,45 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     String hadeth = ModalRoute.of(context)?.settings.arguments as String;
     hadethLines = hadeth.split('\n');
     hadethBodyCollect();
 
     return Stack(
       children: [
-        Image.asset(
-          'assets/images/app_back_ground.png',
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.fill,
-        ),
+        provider.isDark()
+            ? Image.asset(
+                'assets/images/dark_back_ground.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              )
+            : Image.asset(
+                'assets/images/app_back_ground.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              ),
         Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              color: provider.isDark()
+                  ? AppColors.white
+                  : AppColors.black, // Change the color of the back arrow here
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
             title: Text(
-            AppLocalizations.of(context)!.app_title,
-              style: Theme.of(context).textTheme.bodyLarge,
+              AppLocalizations.of(context)!.app_title,
+              style: provider.isDark()
+                  ? Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: AppColors.white)
+                  : Theme.of(context).textTheme.bodyLarge,
             ),
             centerTitle: true,
           ),
@@ -55,17 +81,24 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
                       top: MediaQuery.of(context).size.height * .04,
                       bottom: MediaQuery.of(context).size.height * .1),
                   decoration: BoxDecoration(
-                      color: AppColors.white2,
+                      color: provider.isDark()
+                          ? AppColors.primaryDarkColor
+                          : AppColors.white2,
                       borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            hadethLines[0],
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
+                          Text(hadethLines[0],
+                              style: GoogleFonts.reemKufi(
+                                textStyle: provider.isDark()
+                                    ? Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(color: AppColors.yellow)
+                                    : Theme.of(context).textTheme.bodyMedium,
+                              )),
                           const SizedBox(
                             width: 25,
                           ),
@@ -73,18 +106,25 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
                       ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 16, top: 8),
-                        color: Theme.of(context).primaryColor,
+                        color: provider.isDark()
+                            ? AppColors.yellow
+                            : Theme.of(context).primaryColor,
                         width: double.infinity,
                         height: 1,
-                      ),Expanded(
+                      ),
+                      Expanded(
                         child: SingleChildScrollView(
                           child: Text(
-                                    hadethBody,
-                                    textDirection: TextDirection.rtl,
-                                  ),
+                            hadethBody,
+                            textDirection: TextDirection.rtl,
+                            style: GoogleFonts.amiri(
+                                textStyle: TextStyle(
+                                    color: provider.isDark()
+                                        ? AppColors.yellow
+                                        : AppColors.black)),
+                          ),
                         ),
                       ),
-                     
                     ],
                   ),
                 ),
