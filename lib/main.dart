@@ -6,7 +6,6 @@ import 'package:islami_app/providers/app_config_provider.dart';
 import 'package:islami_app/utils/my_theme_data.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'home/home_screen.dart';
 
 void main() async {

@@ -1,4 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:islami_app/api/api_manager.dart';
+import 'package:islami_app/home/tabs/radio/model/radio_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppConfigProvider extends ChangeNotifier {
@@ -6,6 +9,17 @@ class AppConfigProvider extends ChangeNotifier {
   String savedLanguage;
   String appLanguage = 'ar';
   ThemeMode appTheme = ThemeMode.light;
+  final player = AudioPlayer();
+  playAudio(String url) async {
+    await player.play(UrlSource(url));
+    notifyListeners();
+  }
+
+  pauseAudio() async {
+    //final player = AudioPlayer();
+    await player.pause();
+    notifyListeners();
+  }
   AppConfigProvider(
       {required this.themeMode, required, required this.savedLanguage})
       : appTheme = themeMode,
@@ -43,5 +57,17 @@ class AppConfigProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('themeMode', themeMode.name);
     print('Theme saved to Shared Preferences: ${themeMode.name}');
+  }
+
+  Future<RadioModel?>? radioPlay() async {
+    ApiManager apiManager = ApiManager();
+    try {
+      var response =
+          await apiManager.get(endPoint: 'https://mp3quran.net/api/v3/radios');
+      return RadioModel.fromJson(response.data);
+    } on Exception catch (e) {
+      print(e);
+      return null;
+    }
   }
 }
